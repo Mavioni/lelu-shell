@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Lelu
+GenericName=Lelu shell
+Comment=Revenant OS Lelu shell — forked Cinnamon 6.4.6 (alongside-install at /opt/lelu-shell)
+Exec=/opt/lelu-shell/bin/cinnamon
+TryExec=/opt/lelu-shell/bin/cinnamon
+Icon=cinnamon
+Type=Application
+DesktopNames=X-Cinnamon;Lelu
+X-LightDM-DesktopName=Lelu
+X-Ubuntu-Gettext-Domain=lelu-shell

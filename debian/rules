@@ -22,6 +22,17 @@ override_dh_auto_configure:
 		-D deprecated_warnings=false \
 		-D py3modules_dir=$(PREFIX)/lib/python3/dist-packages
 
+# After meson install: strip /etc/ (would collide with stock cinnamon-common)
+# and add the lightdm session descriptor that points at /opt/lelu-shell/bin/cinnamon.
+override_dh_auto_install:
+	dh_auto_install
+	# Stock cinnamon-common owns /etc/xdg/menus/cinnamon-applications.menu;
+	# lelu-shell is alongside-install, so we drop our copy.
+	rm -rf debian/lelu-shell-core/etc/
+	# Install the lightdm xsession descriptor so "Lelu" shows up at login.
+	install -D -m 0644 debian/lelu.desktop \
+	  debian/lelu-shell-core/usr/share/xsessions/lelu.desktop
+
 # No DWZ for this build (matches upstream LMDE workaround)
 override_dh_dwz:
 
