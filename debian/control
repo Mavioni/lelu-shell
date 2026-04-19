@@ -53,7 +53,7 @@ Depends:
  cjs (>= 4.8),
  gir1.2-cinnamondesktop-3.0 (>= 5.3),
  gir1.2-cmenu-3.0 (>= 4.8),
- gir1.2-muffin-0 (>= 5.3),
+ gir1.2-meta-muffin-0.0 (>= 5.3),
  gir1.2-xapp-1.0 (>= 2.6.0),
  muffin (>= 5.3),
 Recommends:
