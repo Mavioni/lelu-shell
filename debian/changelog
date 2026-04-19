@@ -1,4 +1,4 @@
-lelu-shell (0.1.0-1) unstable; urgency=medium
+lelu-shell (0.1.0) unstable; urgency=medium
 
   * Initial Phase 4b release - first .deb built from the Mavioni/lelu-shell
     fork of linuxmint/Cinnamon.
