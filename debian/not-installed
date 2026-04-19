@@ -1,7 +1,10 @@
-# moved to /usr/share
-usr/lib/cinnamon-*
-# libtool not installed
-usr/lib/*/cinnamon/libcinnamon-js.la
-usr/lib/*/cinnamon/libcinnamon.la
-# manpages are compressed
-usr/share/man/man1/*.1
+# Phase 4b ships only the core shell; skip upstream auxiliary files that
+# would either collide with stock cinnamon or belong to Phase 5 rewrite
+# zones that will land separately.
+
+# Libtool archives (not installed by Debian policy)
+opt/lelu-shell/lib/*/cinnamon/libcinnamon-js.la
+opt/lelu-shell/lib/*/cinnamon/libcinnamon.la
+
+# Manpages are compressed by debhelper; raw ones are not installed
+opt/lelu-shell/share/man/man1/*.1

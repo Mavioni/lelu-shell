@@ -1,34 +1,39 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
+# debian/rules for lelu-shell - the Revenant OS fork of Cinnamon shell.
+# Installs to /opt/lelu-shell/ (alongside upstream cinnamon) via meson
+# --prefix redirect. Auxiliary Python tools (cinnamon-settings et al.)
+# are NOT packaged here - operators use stock Mint packages for those.
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
-
-# Force UTF8 to workaround doc build error
 export LC_ALL=C.UTF-8
-
 export DEB_LDFLAGS_MAINT_APPEND=-Wl,--as-needed
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# Install prefix - alongside install per docs/SHELL-FORK.md section 5
+PREFIX = /opt/lelu-shell
 
 %:
 	dh $@ --with gir,python3
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		--libexecdir=/usr/libexec/cinnamon \
-		-D docs=true \
+		--prefix=$(PREFIX) \
+		--libexecdir=$(PREFIX)/libexec/cinnamon \
+		-D docs=false \
 		-D deprecated_warnings=false \
-		-D py3modules_dir=/usr/lib/python3/dist-packages
+		-D py3modules_dir=$(PREFIX)/lib/python3/dist-packages
 
-# workaround for fix lmde4 build
+# No DWZ for this build (matches upstream LMDE workaround)
 override_dh_dwz:
 
+# Point dh_python3 at the alternate prefix
 override_dh_python3:
-	dh_python3 /usr/share/cinnamon
+	dh_python3 $(PREFIX)/share/cinnamon
 
-override_dh_makeshlibs:
-	dh_makeshlibs -pcinnamon -Xlibcinnamon
-	dh_makeshlibs --remaining-packages
-
+# Only strip the core package (no -dbg split in Phase 4b)
 override_dh_strip:
-	dh_strip --dbg-package=cinnamon-dbg
+	dh_strip
+
+# shlibs: only process the core package shared libraries
+override_dh_makeshlibs:
+	dh_makeshlibs -plelu-shell-core -Xlibcinnamon
+	dh_makeshlibs --remaining-packages
