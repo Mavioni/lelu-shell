@@ -1,0 +1,14 @@
+# Force LF line endings for all files that must not carry Windows CRLF.
+# Background: when this fork is checked out on Windows via Git (as in the
+# Revenant-OS parent repo's submodule flow), core.autocrlf=true converts
+# LF -> CRLF on checkout. Several packaging tools (dpkg-source, shebang
+# interpretation, meson) break on CRLF. Pin these paths to LF explicitly.
+
+debian/**                 text eol=lf
+*.sh                      text eol=lf
+*.py                      text eol=lf
+meson.build               text eol=lf
+meson_options.txt         text eol=lf
+*.in                      text eol=lf
+debian/rules              text eol=lf
+debian/source/format      text eol=lf
